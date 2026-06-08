@@ -1,0 +1,28 @@
+local model = script.Parent
+for _, part in model:GetChildren() do
+	if part:IsA("BasePart") then
+		local oncooldown = false
+		local originalcolor = part.Color
+		part.Touched:Connect(function(otherpart)
+			if oncooldown then 
+				return 
+			end
+			local character = otherpart.Parent
+			local humanoid = character:FindFirstChildOfClass("Humanoid")
+			if not humanoid then 
+				return 
+			end
+            oncooldown = true 
+			part.Color = Color3.new(1, 0, 0)
+			task.wait(0.3)
+			part.Transparency = 1
+			part.CanCollide = false
+			task.wait(1)
+			part.Transparency = 0
+			part.CanCollide = not false
+			part.Color = originalcolor	
+			task.wait(1)
+			oncooldown = false
+		end)
+	end
+end 
